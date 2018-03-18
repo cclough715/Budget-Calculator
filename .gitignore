@@ -1,0 +1,9 @@
+#python class files
+*.pyc
+
+#Flask configuration file
+configuration.py
+
+#pip freeze > requirements.txt
+#pip install -r requirements.txt
+env/
