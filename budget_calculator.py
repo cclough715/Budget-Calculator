@@ -6,7 +6,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 	abort, render_template, flash
 from contextlib import closing
 from flaskext.mysql import MySQL
-from flask wtf_ import Form
+from flask_wtf import Form
 from passlib.hash import sha256_crypt
 from MySQLdb import escape_string as thwart
 from MySQLdb.cursors import DictCursor
@@ -16,8 +16,8 @@ from wtforms import Form, BooleanField, PasswordField, StringField, validators
 app = Flask(__name__)
 app.config['SECRET_KEY'] = keyring.get_password("budget_calculator", "SECRET_KEY")
 
-db_conf = {'name':'budget_calculator','user'='root',
-		   'pw'=keyring.get_password("mysql_budget_calculator","root"), 'host':'localhpst'}
+db_conf = {'name':'budget_calculator','user':'root',
+		   'pw':keyring.get_password("mysql_budget_calculator","root"), 'host':'localhpst'}
 #
 #
 #   Database functions
