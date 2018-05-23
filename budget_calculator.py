@@ -74,7 +74,7 @@ def homepage():
     '''
         TODO: Make pretty homepage
     '''
-    return render_template('header.html')
+    return render_template('main.html')
 
 #display message threads between users
 @app.route('/messages')
