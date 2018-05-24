@@ -76,17 +76,23 @@ def homepage():
     '''
     return render_template('main.html')
 
-#display message threads between users
-@app.route('/messages')
-@login_required
-def messages():
-    return render_template('messages.html')
-
 #display user's profile information
 @app.route('/myprofile')
 @login_required
 def myprofile():
     return render_template('profile.html')
+	
+#display budget for a single month
+@app.route('/monthview')
+@login_required
+def monthview():
+    return render_template('month.html')
+	
+#display overview for a year
+@app.route('/yearview')
+@login_required
+def yearview():
+    return render_template('year.html')
 
 
 #display login form
