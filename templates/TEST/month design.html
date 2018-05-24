@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+	<title>Monthly Budget</title>
+	<style>
+	h1 {
+		text-align: center;
+	}
+	
+	table {
+		border: 3px solid black;
+		border-spacing: 5px
+	}
+	
+	th {
+		text-align: center;
+	}
+	
+	td, th {
+		border: 1px dashed black;
+		text-align: right;
+		padding: 8px;
+		font: CourierNew;
+	}
+	
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+	
+	td:nth-child(1) {
+		text-align: left;
+		font: timesnewroman;
+	}
+	</style>
+</head>
+<body>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+	<h1>May 2018</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">One of three columns</div>
+			<div class="col-sm">
+				<span style="text-align: left">Essentials</span><span style="text-align: right">52%</span>
+				<table>
+					<tr>
+						<th>Description</th>
+						<th>Projected</th> 
+						<th>Actual</th>
+					</tr>
+					<tr>
+						<td>Rent</td>
+						<td>$900.00</td> 
+						<td>$900.00</td>
+					</tr>
+					<tr>
+						<td>Electric</td>
+						<td>$70.00</td> 
+						<td>$76.43</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm">One of three columns</div>
+		</div>
+	</div>
+</body>
+</html>

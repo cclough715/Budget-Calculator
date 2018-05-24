@@ -1,0 +1,6 @@
+Bootstrap Carousel to transition between sheets on smaller screens
+	https://v4-alpha.getbootstrap.com/components/carousel/
+	https://www.w3schools.com/bootstrap/bootstrap_ref_js_carousel.asp
+
+Scrollable Table for Sheets
+http://www.farinspace.com/jquery-scrollable-table-plugin/
