@@ -21,12 +21,14 @@
 	
 	th {
 		text-align: center;
+		border: 1px dashed black;
+		padding: 10px;
 	}
 	
-	td, th {
+	td {
 		border: 1px dashed black;
 		text-align: right;
-		padding: 8px;
+		padding: 10px;
 		font: CourierNew;
 	}
 	
@@ -38,6 +40,18 @@
 		text-align: left;
 		font: timesnewroman;
 	}
+	
+	input {
+		text-align: right;
+		display: inline;
+		padding-left: 15px;
+	}
+	
+	span.money {
+		position:relative;
+		margin-right:-15px;
+	}
+	
 	</style>
 </head>
 <body>
@@ -62,48 +76,48 @@
 					</tr>
 					<tr>
 						<td>Rent</td>
-						<td>$900.00</td> 
-						<td>$900.00</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="900.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="900.00"></td>
 					</tr>
 					<tr>
 						<td>Electric</td>
-						<td>$70.00</td> 
-						<td>$76.43</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="70.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="76.43"></td>
 					</tr>
 					<tr>
 						<td>Car</td>
-						<td>$350.00</td> 
-						<td>$350.00</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="350.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="350.00"></td>
 					</tr>
 					<tr>
 						<td>Insurance</td>
-						<td>$120.00</td> 
-						<td>$ - </td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="120.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
 					</tr>
 					<tr>
 						<td>Gas</td>
-						<td>$150.00</td> 
-						<td>$43.72</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="150.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="43.72"></td>
 					</tr>
 					<tr>
 						<td>Cable</td>
-						<td>$120.00</td> 
-						<td>$ - </td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="120.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
 					</tr>
 					<tr>
 						<td>Laundry</td>
-						<td>$40.00</td> 
-						<td>$10.00</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="40.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="10.00"></td>
 					</tr>
 					<tr>
 						<td>Phone</td>
-						<td>$90.00</td> 
-						<td>$ - </td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="90.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
 					</tr>
 					<tr>
 						<td>Food</td>
-						<td>$200.00</td> 
-						<td>$50.75</td>
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="200.00"></td> 
+						<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="50.75"></td>
 					</tr>
 				</table>
 				</div>
