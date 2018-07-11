@@ -11,6 +11,7 @@ from passlib.hash import sha256_crypt
 from MySQLdb import escape_string as thwart
 from MySQLdb.cursors import DictCursor
 from wtforms import Form, BooleanField, PasswordField, StringField, validators
+from functools import wraps
 
 #create app
 app = Flask(__name__)
