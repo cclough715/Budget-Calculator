@@ -77,6 +77,10 @@ def homepage():
     '''
     return render_template('main.html')
 
+@app.route('/test')
+def test():
+    return render_template('month design.html')    
+    
 #display user's profile information
 @app.route('/myprofile')
 @login_required
