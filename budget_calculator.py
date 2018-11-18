@@ -35,15 +35,15 @@ def db_execute(statement, fetchall=False):
         with closing(MySQLdb.connect(db_conf['host'], db_conf['user'], db_conf['pw'],
             db_conf['name'])) as conn:
             with closing(conn.cursor(MySQLdb.cursors.DictCursor)) as cur:
-                print statement
+                print(statement)
                 if fetchall:
                     cur.execute(statement)
                     data = cur.fetchall()[0]
                 else:
                     data = cur.execute(statement)
-                print data
+                print(data)
     except Exception as e:
-        print "Error: %s" % e
+        print( "Error: %s" % e)
     return data
 
 '''
@@ -108,7 +108,7 @@ def login():
         if request.method == "POST":
             data = db_execute("SELECT * FROM users WHERE username = \"{}\"".format(
                 thwart(request.form['username'])), fetchall=True)
-            print "Hello {}".format(data)
+            print("Hello {}".format(data))
             if data:
                 #data = c.fetchone()
                 if sha256_crypt.verify(request.form['password'], data['password']):
