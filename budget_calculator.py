@@ -1,3 +1,4 @@
+import argparse
 import gc
 import keyring
 import MySQLdb
@@ -13,21 +14,32 @@ from MySQLdb.cursors import DictCursor
 from passlib.hash import sha256_crypt
 from wtforms import Form, BooleanField, PasswordField, StringField, validators
 
-#create app
+#	Arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--prod", help="Run the app in a production environment", action="store_true")
+args = parser.parse_args()
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = keyring.get_password("budget_calculator", "SECRET_KEY")
+
+#	Configure App
+if args.prod:
+	app.config.from_object('flask_conf.ProdConfig')
+	print("Running in PROD Mode")
+else:
+	app.config.from_object('flask_conf.TestConfig')
+	print("Running in TEST Mode")
 
 db_conf = {'name':'budget_calculator','user':'root',
 		   'pw':keyring.get_password("mysql_budget_calculator","root"), 'host':'localhost'}
-#
+
 #
 #   Database functions
 #
 #
 '''
-Executes {statement} to the database specified in db_conf
-Returns number of rows affected unless fetchall=True in which
-this will return the remaining rows of the query result set
+	Executes {statement} to the database specified in db_conf
+	Returns number of rows affected unless fetchall=True in which
+	this will return the remaining rows of the query result set
 '''
 def db_execute(statement, fetchall=False):
     data = []
@@ -196,4 +208,4 @@ def internal_server_error(e):
 #
 #
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+	app.run(host='0.0.0.0')
