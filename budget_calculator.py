@@ -6,6 +6,7 @@ import wtforms
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 	abort, render_template, flash
+from flask_login import LoginManager
 from flaskext.mysql import MySQL
 from flask_wtf import Form
 from functools import wraps
@@ -29,8 +30,11 @@ else:
 	app.config.from_object('flask_conf.TestConfig')
 	print("Running in TEST Mode")
 
-db_conf = {'name':'budget_calculator','user':'root',
-		   'pw':keyring.get_password("mysql_budget_calculator","root"), 'host':'localhost'}
+db_conf = {'name':'budget_calc','user':'root',
+		   'pw':keyring.get_password("mysql_budget_calc","root"), 'host':'localhost'}
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 #
 #   Database functions
@@ -139,6 +143,10 @@ def login():
         flash(e) #used for debugging
         return render_template('login.html', error=e)
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)	
+	
 @app.route('/logout')
 @login_required
 def logout():
@@ -174,7 +182,7 @@ def register():
                 return render_template("register.html", form=form)
             else:
                 flash("Username not taken") 
-                db_execute("INSERT INTO users (username, password, email) VALUES({}, {}, {})".format( 
+                db_execute("INSERT INTO users (username, password, email) VALUES ({}, {}, {})".format( 
                     thwart(username), thwart(password), thwart(email)))
                 flash("Thank you for registering")
                 session['logged_in'] = True
