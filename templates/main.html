@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	{% block head %}
 	<meta charset="utf-8">
-	<title>{% block title %}Budget Calculator{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	{% block head %}
+	<title>{% block title %}Budget Calculator{% endblock %}</title>
 	{% endblock %}
-</head>
+	</head>
 
 <header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,6 +37,15 @@
 </header>
 
 <body>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+			<li class="alert alert-warning" role="alert">{{ message }}</li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+	{% endwith %}
 	{% block body %}{% endblock %}
 </body>
 
