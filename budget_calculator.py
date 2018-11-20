@@ -122,7 +122,7 @@ def login():
     error = ''
     try:
         if request.method == "POST":
-            data = db_execute("SELECT * FROM users WHERE username = \"{}\"".format(
+            data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\"".format(
                 thwart(request.form['username'])), fetchall=True)
             print("Hello {}".format(data))
             if data:
@@ -175,14 +175,14 @@ def register():
             email = form.email.data
             password = sha256_crypt.encrypt(str(form.password.data))
 
-            data = db_execute("SELECT * FROM users WHERE username = \"{}\"".format(
+            data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\"".format(
                 (thwart(username))))
             if int(data) > 0:
                 flash("That username is already taken")
                 return render_template("register.html", form=form)
             else:
                 flash("Username not taken") 
-                db_execute("INSERT INTO users (username, password, email) VALUES ({}, {}, {})".format( 
+                db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\")".format( 
                     thwart(username), thwart(password), thwart(email)))
                 flash("Thank you for registering")
                 session['logged_in'] = True
