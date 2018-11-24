@@ -57,9 +57,10 @@ def db_execute(statement, fetchall=False):
 					data = cur.fetchall()[0]
 				else:
 					data = cur.execute(statement)
+				conn.commit()
 				print(data)
 	except Exception as e:
-		print( "Error: %s" % e)
+		print( "DB Error: %s" % e)
 	return data
 
 '''
@@ -122,7 +123,7 @@ def login():
 	error = ''
 	try:
 		if request.method == "POST":
-			data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\"".format(
+			data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\";".format(
 				request.form['username']), fetchall=True)
 			if data:
 				#data = c.fetchone()
@@ -175,14 +176,14 @@ def register():
 			email = form.email.data
 			password = str(form.password.data)
 
-			data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\"".format(
+			data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\";".format(
 				(username)))
 			if int(data) > 0:
 				flash("That username is already taken")
 				return render_template("register.html", form=form)
 			else:
 				flash("Username not taken") 
-				db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\")".format( 
+				db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\");".format( 
 					username, password, email))
 				flash("Thank you for registering")
 				session['logged_in'] = True
