@@ -2,15 +2,15 @@
 
 {% block body %}
 <div class="container">
-    <br>
-    <h4>Please Login:</h4>
-    <form action="" class="form-inline" method="post">
-        <input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}"> 
-        <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
-        <input class="btn btn-default" type="submit" value="Login">
+	<br>
+	<h4>Returning User</h4>
+	<form method="post" action="/">
+		<input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}"> 
+		<input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
+		<input class="btn btn-default" type="submit" value="Login">
     </form>
-    {% if error %}
-            <p class="error"><strong>Error:</strong>{{error}}
-    {% endif %}
+	{% if error %}
+    	<p class="error"><strong>Error:</strong>{{error}}
+	{% endif %}
 </div>
 {% endblock%}

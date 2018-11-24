@@ -22,7 +22,7 @@
 		   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="/test"><img class="drop" src="static/img/open-iconic-master/png/spreadsheet-2x.png">TEST</a>
-				<a class="divider"></a>
+				<div class="dropdown-divider"></div>
 				{% if current_user.is_authenticated %}
 					<a class="dropdown-item" href="/logout"><img class="drop" src="static/img/open-iconic-master/png/account-logout-2x.png">Logout</a>
 				{% else %}
@@ -37,7 +37,7 @@
 <body>
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<ul class=flashes>
+		<ul class="flashes" style="margin: 10px 50px 10px 0px">
 		{% for message in messages %}
 			<div class="alert alert-warning alert-dismissible" role="alert">
 				{{ message }}
