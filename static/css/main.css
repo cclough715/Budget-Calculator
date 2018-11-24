@@ -1,7 +1,21 @@
+:root {
+	//https://www.color-hex.com/color-palette/815
+    --main-dark-green: #1a472a;
+	--main-green: #2a623d;
+	--main-dark-gray: #5d5d5d;
+	--main-gray: #aaaaaa;
+	--main-black: #000000;
+}
+
 body {
-	background-color: lightgray;
+	background-color: var(--main-gray);
 }
 
 .navbar-brand {
 	text-align: center;
+}
+
+.drop {
+	//float: left;
+	padding-right: 10px;
 }
