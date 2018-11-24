@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid" style="background-color: var(--main-gray); font-family: impact">
+  <div class="container">
+    <h1 class="display-4" style="text-align: center">Budgeting Made Simple</h1>
+    <p class="lead">With the budget calculator you can simplify your finances 
+		using the 50/20/30 scheme. This website is designed to be user 
+		friendly, and customized for different budgeting styles.</p>
+  </div>
+</div>
+{#{% if user.is_authenticated %}
+  Hi {{ user.name }}!
+{% endif %}#}
+{% endblock %}
