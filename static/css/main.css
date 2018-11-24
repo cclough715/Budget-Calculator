@@ -1,6 +1,5 @@
 :root {
-	//https://www.color-hex.com/color-palette/815
-    --main-dark-green: #1a472a;
+	--main-dark-green: #1a472a;
 	--main-green: #2a623d;
 	--main-dark-gray: #5d5d5d;
 	--main-gray: #aaaaaa;
@@ -11,11 +10,32 @@ body {
 	background-color: var(--main-gray);
 }
 
+form {
+	border-width: medium; 
+	border-style: solid;
+	border-color: var(--main-green);
+	border-radius: 20px;
+	padding: 5px;
+	text-align: center;
+}
+
 .navbar-brand {
 	text-align: center;
 }
 
+.brand-text {
+	padding-left: 10px;
+	font-family: "Courier New";	
+}
+
 .drop {
-	//float: left;
 	padding-right: 10px;
 }
+
+.container h4 {
+	font-family: "Courier New";
+	font-weight: bold;
+	text-align: center; 
+	padding-top: 25px;
+}
+
