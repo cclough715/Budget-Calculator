@@ -6,7 +6,8 @@ import wtforms
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
 	abort, render_template, flash
-from flask_login import LoginManager
+from flask_login import LoginManager, UserMixin, \
+                                login_required, login_user, logout_user 
 from flaskext.mysql import MySQL
 from flask_wtf import Form
 from functools import wraps
@@ -32,9 +33,6 @@ else:
 
 db_conf = {'name':'budget_calc','user':'root',
 		   'pw':keyring.get_password("mysql_budget_calc","root"), 'host':'localhost'}
-
-login_manager = LoginManager()
-login_manager.init_app(app)
 
 #
 #   Database functions
@@ -76,18 +74,28 @@ def db_execute(statement, fetchall=False):
 #   Template navigation
 #
 #
-def login_required(f):
-	@wraps(f)
-	def wrap(*args, **kwargs):
-		if 'logged_in' in session:
-			return f(*args, **kwargs)
-		else:
-			flash("You need to be logged in to do that!")
-			return redirect(url_for('login'))
-	return wrap
-	
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+	data = db_execute("SELECT * FROM `users` WHERE `uid` = \"{}\";".format(user_id), fetchall=True)
+	return data['uid']
+
+#def login_required(f):
+#	@wraps(f)
+#	def wrap(*args, **kwargs):
+#		if 'logged_in' in session:
+#			return f(*args, **kwargs)
+#		else:
+#			flash("You need to be logged in to do that!")
+#			return redirect(url_for('login'))
+#	return wrap
+		
 
 @app.route('/homepage')
+@app.route('/')
 def homepage():
 	'''
 		TODO: Make pretty homepage
@@ -127,11 +135,10 @@ def login():
 				request.form['username']), fetchall=True)
 			if data:
 				#data = c.fetchone()
-				if request.form['password'] == data['password']:
-					session['logged_in'] = True
-					session['username'] = request.form['username']
-					flash("You're now logged in")
-					flash("Hello {}".format(session['username']))
+				if request.form['password'] == data['password'] and request.form['username'] == data['username']:
+					user = User(data['uid'])
+					login_user(user)
+					flash("You're now logged in. Hello {}".format(session['username']))
 					return redirect(url_for('homepage'))
 				else:
 					error = "Invalid Credentials. Try Again"
@@ -143,10 +150,6 @@ def login():
 	except Exception as e:
 		flash(e) #used for debugging
 		return render_template('login.html', error=e)
-
-@login_manager.user_loader
-def load_user(user_id):
-	return User.get(user_id)	
 	
 @app.route('/logout')
 @login_required
@@ -182,12 +185,9 @@ def register():
 				flash("That username is already taken")
 				return render_template("register.html", form=form)
 			else:
-				flash("Username not taken") 
 				db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\");".format( 
 					username, password, email))
 				flash("Thank you for registering")
-				session['logged_in'] = True
-				session['username'] = username
 
 				return redirect(url_for('homepage'))
 	except Exception as e:
@@ -195,6 +195,19 @@ def register():
 
 	return render_template('register.html', form=form)
 
+class User(UserMixin):
+
+	def __init__(self, id):
+		self.id = id
+		self.name = "user" + str(id)
+		self.password = self.name + "_secret"
+
+	def __repr__(self):
+		return "%d/%s/%s" % (self.id, self.name, self.password)
+	
+	def get_id(self):
+		return str(self.id).encode("utf-8").decode("utf-8") 
+									 
 #
 #
 #   Error handling
