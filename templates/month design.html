@@ -42,13 +42,18 @@
 	}
 	
 	span.money {
+		/* Used with input box to get '$' left aligned within text */
 		position:relative;
 		margin-right:-15px;
 	}
 	</style>
-{% endblock %}
+	<link rel="stylesheet" href="static/css/numbers.css">
+	{% endblock %}
 {% block body %}
 <h1>May 2018</h1>
+<p class="dolla--pos">$  100.00</p>
+<p class="dolla--neg">$ (100.00)</p>
+<p class="dolla">$	0.00</p>
 <div class="container">
 	<div class="row">
 		<div class="col-sm">
@@ -62,8 +67,8 @@
 				</tr>
 				<tr>
 					<td>Rent</td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="900.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="900.00"></td>
+					<td><span class="money">$</span><input type="text" min="0" max="9999999999" value="900.00"></td> 
+					<td><span class="money">$</span><input type="text" min="0" max="9999999999" value="900.00"></td>
 				</tr>
 				<tr>
 					<td>Electric</td>
@@ -122,56 +127,13 @@
 					<th>Projected</th> 
 					<th>Actual</th>
 				</tr>
+				{% for items in items %}
 				<tr>
-					<td>Stu Loans</td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="600.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="300.00"></td>
+					<td>items.desc</td>
+					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value=items.num1></td> 
+					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value=items.num2></td>
 				</tr>
-				<tr>
-					<td>Savings</td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="100.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td>Credit Card</td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="50.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="50.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td> 
-					<td><span class="money">$</span><input type="number" min="0" max="9999999999" step="1.00" value="0.00"></td>
-				</tr>
+				{% endfor %}
 			</table>
 			</div>
 		</div>
