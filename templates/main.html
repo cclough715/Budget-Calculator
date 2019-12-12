@@ -16,18 +16,19 @@
 	<nav class="navbar navbar-default navbar-dark" style="background-color: var(--main-dark-green)" role="navigation">
 		<div class="container-fluid">
 		<div class="navbar-header">
-			<img src="static/img/open-iconic-master/png/calculator-4x.png"><a class="navbar-brand brand-text" href='/homepage'>Budget Calc</a>
+			<img src="static/img/open-iconic-master/png/calculator-4x.png"><a class="navbar-brand brand-text" href='/'>Budget Calc</a>
 		</div>
 		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
 		   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="/test"><img class="drop" src="static/img/open-iconic-master/png/spreadsheet-2x.png">TEST</a>
+				<a class="dropdown-item" href="/test"><img class="drop" src="static/img/open-iconic-master/png/spreadsheet-2x.png">Spreadsheet</a>
+				<a class="dropdown-item" href="/graph"><img class="drop" src="static/img/open-iconic-master/png/graph-2x.png">Graphs</a>
 				<div class="dropdown-divider"></div>
-				{% if current_user.is_authenticated %}
-					<a class="dropdown-item" href="/logout"><img class="drop" src="static/img/open-iconic-master/png/account-logout-2x.png">Logout</a>
-				{% else %}
-					<a class="dropdown-item" href="/register"><img class="drop" src="static/img/open-iconic-master/png/plus-2x.png">Register</a>
-					<a class="dropdown-item" href="/login"><img class="drop" src="static/img/open-iconic-master/png/account-login-2x.png">Login</a>
+				{% if not current_user %}
+						<a class="dropdown-item" href="/login"><img class="drop" src="static/img/open-iconic-master/png/account-login-2x.png">Login</a>
+						<a class="dropdown-item" href="/register"><img class="drop" src="static/img/open-iconic-master/png/plus-2x.png">Register</a>	
+				{% elif current_user.is_authenticated %}
+						<a class="dropdown-item" href="/logout"><img class="drop" src="static/img/open-iconic-master/png/account-logout-2x.png">Logout</a>
 				{% endif%}
 			</div>
 		</div>
@@ -37,16 +38,16 @@
 <body>
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<ul class="flashes" style="margin: 10px 50px 10px 0px">
-		{% for message in messages %}
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				{{ message }}
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    				<span aria-hidden="true">&times;</span>
-  				</button>
-			</div>
-		{% endfor %}
-		</ul>
+			<ul class="flashes" style="margin: 10px 50px 10px 0px">
+			{% for message in messages %}
+				<div class="alert alert-warning alert-dismissible" role="alert">
+					{{ message }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+			</ul>
 		{% endif %}
 	{% endwith %}
 	{% block body %}{% endblock %}
