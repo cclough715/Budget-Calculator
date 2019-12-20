@@ -16,7 +16,10 @@ from wtforms import Form, BooleanField, PasswordField, StringField, validators
 
 # Handle Arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--prod", help="Run the app in a production environment", action="store_true")
+parser.add_argument("--prod", action="store_true", default=False,
+					help="Run the app in a production environment")
+parser.add_argument("--debug", action="store_true", default=False,
+					help="Run the app in debug mode. **Avoid using in PROD!**")
 args = parser.parse_args()
 
 # Firebase Authentication
@@ -25,12 +28,20 @@ firebase_admin.initialize_app(cred)
 
 # initialize app
 app = Flask(__name__)
+
+app.config["DEBUG"] = args.debug
 if args.prod:
     app.config.from_object('flask_conf.ProdConfig')
-    print("Running in PROD Mode")
+    if args.debug:
+        print("**CAUTION** Running in PROD with Debug!")
+    else:
+        print("Running in PROD Mode")
 else:
     app.config.from_object('flask_conf.TestConfig')
-    print("Running in TEST Mode")
+    if args.debug:
+        print("Running in TEST debug mode")
+    else:
+        print("Running in TEST Mode")
 
 #
 #
