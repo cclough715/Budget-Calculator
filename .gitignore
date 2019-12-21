@@ -3,7 +3,7 @@
 
 #Flask configuration file
 configuration.py
+flask_conf.py
 
-#pip freeze > requirements.txt
-#pip install -r requirements.txt
 env/
+prod_env/
