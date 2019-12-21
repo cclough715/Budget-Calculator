@@ -29,7 +29,6 @@ firebase_admin.initialize_app(cred)
 # initialize app
 app = Flask(__name__)
 
-app.config["DEBUG"] = args.debug
 if args.prod:
     app.config.from_object('flask_conf.ProdConfig')
     if args.debug:
@@ -42,6 +41,9 @@ else:
         print("Running in TEST debug mode")
     else:
         print("Running in TEST Mode")
+
+app.config["DEBUG"] = args.debug
+
 
 #
 #
@@ -58,6 +60,16 @@ def login_required(f):
             flash("You need to be logged in to do that!")
             return redirect(url_for('login'))
     return wrap
+
+def debug_mode_only(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if app.config["DEBUG"]:
+            return f(*args, **kwargs)
+        else:
+            flash("Not authorized - Error: 0x00001")
+            return redirect(url_for("index"))
+    return wrap
         
 @app.route('/index', methods = ["GET", "POST"])
 @app.route('/', methods = ["GET", "POST"])
@@ -68,16 +80,18 @@ def index():
     return render_template('homepage.html')
 
 @app.route('/test')
+@debug_mode_only
 def test():
     items = []
     for i in range(1,11):
         i = str(i)
         an_item = dict(desc="Item "+i,num1=(random.randint(1,11)*100),num2=0)
         items.append(an_item)
-    template.render(items=items)
+    
     return render_template('month design.html')    
 
 @app.route('/graph')
+@debug_mode_only
 def graph():
     return render_template('graph.html')
     
