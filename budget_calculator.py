@@ -7,8 +7,10 @@ from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials, auth, firestore
+from firebase_conf import params as fb_params
 from flask_wtf import Form
+from google.cloud.exceptions import NotFound
 import jinja2
 from functools import wraps
 from passlib.hash import sha256_crypt
@@ -22,12 +24,16 @@ parser.add_argument("--debug", action="store_true", default=False,
 					help="Run the app in debug mode. **Avoid using in PROD!**")
 args = parser.parse_args()
 
-# Firebase Authentication
-cred = credentials.Certificate("../../credentials.json")
-firebase_admin.initialize_app(cred)
-
 # initialize app
 app = Flask(__name__)
+cred = credentials.Certificate("credentials.json")
+fb_app = firebase_admin.initialize_app(cred, {
+        "databaseURL": fb_params["DB_URL"],
+        "databaseAuthVariableOverride": {
+            "uid": fb_params["DB_AUTH_OR_UID"]
+        }
+    })
+db = firestore.client()
 
 if args.prod:
     app.config.from_object('flask_conf.ProdConfig')
@@ -43,7 +49,13 @@ else:
         print("Running in TEST Mode")
 
 app.config["DEBUG"] = args.debug
+args.debug = None
 
+#test database access
+if app.config["DEBUG"]:
+    doc_ref = db.document(u"users/4rxvrvjwJX35qkPgb914")
+    doc = doc_ref.get()
+    print("User: {} ==> {}".format(doc.id, doc.to_dict()))
 
 #
 #
@@ -122,6 +134,8 @@ def login():
         if request.method == "POST":
             #data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\";".format(
             #    request.form['username']), fetchall=True)
+            # TODO: See if user exists
+            flash("Please try again later - Error: 0x00003")
             if data:
                 #data = c.fetchone()
                 if request.form['password'] == data['password'] and request.form['username'] == data['username']:
@@ -169,14 +183,19 @@ def register():
             email = form.email.data
             password = str(form.password.data)
 
-            data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\";".format(
-                (username)))
-            if int(data) > 0:
+            #data = db_execute("SELECT * FROM `users` WHERE `username` = \"{}\";".format(
+            #    (username)))
+            # TODO: check to see if username is already in database
+            data = None
+
+            if data is None:
+                flash("Please try again later - Error: 0x00002")
+            elif int(data) > 0:
                 flash("That username is already taken")
                 return render_template("register.html", form=form)
             else:
-                db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\");".format( 
-                    username, password, email))
+             #   db_execute("INSERT INTO `users` (`username`, `password`, `email`) VALUES (\"{}\", \"{}\", \"{}\");".format( 
+             #       username, password, email))
                 flash("Thank you for registering")
 
                 return redirect(url_for('.index'))

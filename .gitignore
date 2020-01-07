@@ -5,5 +5,15 @@
 configuration.py
 flask_conf.py
 
+#Firebase config files
+.firebaserc
+*.rules
+firebase_conf.py
+credentials.json
+
+#Environment; Use requirements.txt to configure environment
 env/
 prod_env/
+
+#log files
+*.log
