@@ -20,7 +20,7 @@ mingus==0.5.1
 more-itertools==8.0.2
 numpy==1.17.4
 pandas==0.25.3
-paramiko==2.7.1
+paramiko==2.10.1
 pexpect==4.7.0
 ptyprocess==0.6.0
 pycparser==2.19
